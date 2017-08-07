@@ -3,23 +3,127 @@
     ViewBag.Title = "Calculator";
 }
 
+<h2>Calculator</h2>
 <div class="row">
 
     <div class="col-md-6 col-md-offset-3">
-        <h2>Calculator</h2>
-        <br />
 
-        <fieldset class="scheduler-border">
-            <legend>Bet Type</legend>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            </div>
-        </fieldset>
+        <br />
+        <form>
+            <fieldset>
+                <legend>Bet Type</legend>
+
+                <div class="form-group">
+                    @*<div class="row">
+                            <div class="col-md-12">
+                                <label for="betTypeId">Bet Type</label>
+                            </div>
+                        </div>*@
+
+
+                    <select id='betTypeId'>
+                        <optgroup label="NFC EAST">
+                            <option>Dallas Cowboys</option>
+                            <option>New York Giants</option>
+                            <option>Philadelphia Eagles</option>
+                            <option>Washington Redskins</option>
+                            <optgroup>
+                                <optgroup label="NFC NORTH">
+                                    <option>Chicago Bears</option>
+                                    <option>Detroit Lions</option>
+                                    <option>Green Bay Packers</option>
+                                    <option>Minnesota Vikings</option>
+                                </optgroup>
+                                <optgroup label="NFC SOUTH">
+                                    <option>Atlanta Falcons</option>
+                                    <option>Carolina Panthers</option>
+                                    <option>New Orleans Saints</option>
+                                    <option>Tampa Bay Buccaneers</option>
+                                </optgroup>
+                                <optgroup label="NFC WEST">
+                                    <option>Arizona Cardinals</option>
+                                    <option>St. Louis Rams</option>
+                                    <option>San Francisco 49ers</option>
+                                    <option>Seattle Seahawks</option>
+                                </optgroup>
+                                <optgroup label="AFC EAST">
+                                    <option>Buffalo Bills</option>
+                                    <option>Miami Dolphins</option>
+                                    <option>New England Patriots</option>
+                                    <option>New York Jets</option>
+                                </optgroup>
+                                <optgroup label="AFC NORTH">
+                                    <option>Baltimore Ravens</option>
+                                    <option>Cincinnati Bengals</option>
+                                    <option>Cleveland Browns</option>
+                                    <option>Pittsburgh Steelers</option>
+                                </optgroup>
+                                <optgroup label="AFC SOUTH">
+                                    <option>Houston Texans</option>
+                                    <option>Indianapolis Colts</option>
+                                    <option>Jacksonville Jaguars</option>
+                                    <option>Tennessee Titans</option>
+                                </optgroup>
+                                <optgroup label="AFC WEST">
+                                    <option>Denver Broncos</option>
+                                    <option>Kansas City Chiefs</option>
+                                    <option>Oakland Raiders</option>
+                                    <option>San Diego Chargers</option>
+                                </optgroup>
+                    </select>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Bet Options</legend>
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+                        <div class="col-md-4 col-xs-6">
+                            <label class="control-label">Unit Stake</label>
+                            <div><small>minimum: 0.01</small></div>
+                        </div>
+                        <div class="col-md-3 col-xs-6">
+                            <input class="form-control" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-4 col-xs-6">
+                            <label class="control-label">Unit Stake</label>
+                            <div><small>minimum: 0.01</small></div>
+                        </div>
+                        <div class="col-md-3 col-xs-6">
+                            <input class="form-control" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-6 control-label">Another choice</label>
+                        <div class="col-xs-6">
+                            <select class="form-control select">
+                                <option>very long choice C</option>
+                                <option>very long choice D</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 col-xs-6">
+                            <label class="control-label">Number of Selections</label>
+                            <div><small>Secondary text</small></div>
+                        </div>
+                        <div class="col-md-3 col-xs-6">
+                            <input class="form-control" type="text">
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+            </fieldset>
+        </form>
+
 
     </div>
 
@@ -27,9 +131,14 @@
 </div>
 
 @section scripts{
+    @*<script src="~/app/vendors/chosen_v1.7.0/chosen.jquery.min.js"></script>*@
+    <script src="~/app/vendors/bootstrap-select-1.12.4/dist/js/bootstrap-select.min.js"></script>
     <script src="~/app/js/betCalculator.js"></script>
 }
 
 @section customStyles{
-    <link href="~/app/vendors/bootstrap-chosen/bootstrap-chosen.css" rel="stylesheet" />
+ 
+    <link href="~/app/vendors/bootstrap-select-1.12.4/dist/css/bootstrap-select.min.css" rel="stylesheet" />   
+    @*<link href="~/app/vendors/chosen_v1.7.0/chosen.min.css" rel="stylesheet" />*@
+    @*<link href="~/app/vendors/chosen_v1.7.0/bootstrap-chosen.css" rel="stylesheet" />*@
 }
