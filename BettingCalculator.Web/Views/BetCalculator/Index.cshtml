@@ -3,6 +3,18 @@
     ViewBag.Title = "Calculator";
 }
 
+<style>
+    #bet-selection-table th{
+        text-align:center;
+    }
+   
+    .bet-selection-win-odd-cell{
+        padding-left:0 !important;
+        padding-right:0 !important;
+    }
+
+</style>
+
 <h2>Calculator</h2>
 <div class="row">
 
@@ -14,71 +26,72 @@
                 <legend>Bet Type</legend>
 
                 <div class="form-group">
-                    @*<div class="row">
-                            <div class="col-md-12">
-                                <label for="betTypeId">Bet Type</label>
-                            </div>
-                        </div>*@
-
-
                     <select id='betTypeId'>
-                        <optgroup label="NFC EAST">
-                            <option>Dallas Cowboys</option>
-                            <option>New York Giants</option>
-                            <option>Philadelphia Eagles</option>
-                            <option>Washington Redskins</option>
-                            <optgroup>
-                                <optgroup label="NFC NORTH">
-                                    <option>Chicago Bears</option>
-                                    <option>Detroit Lions</option>
-                                    <option>Green Bay Packers</option>
-                                    <option>Minnesota Vikings</option>
-                                </optgroup>
-                                <optgroup label="NFC SOUTH">
-                                    <option>Atlanta Falcons</option>
-                                    <option>Carolina Panthers</option>
-                                    <option>New Orleans Saints</option>
-                                    <option>Tampa Bay Buccaneers</option>
-                                </optgroup>
-                                <optgroup label="NFC WEST">
-                                    <option>Arizona Cardinals</option>
-                                    <option>St. Louis Rams</option>
-                                    <option>San Francisco 49ers</option>
-                                    <option>Seattle Seahawks</option>
-                                </optgroup>
-                                <optgroup label="AFC EAST">
-                                    <option>Buffalo Bills</option>
-                                    <option>Miami Dolphins</option>
-                                    <option>New England Patriots</option>
-                                    <option>New York Jets</option>
-                                </optgroup>
-                                <optgroup label="AFC NORTH">
-                                    <option>Baltimore Ravens</option>
-                                    <option>Cincinnati Bengals</option>
-                                    <option>Cleveland Browns</option>
-                                    <option>Pittsburgh Steelers</option>
-                                </optgroup>
-                                <optgroup label="AFC SOUTH">
-                                    <option>Houston Texans</option>
-                                    <option>Indianapolis Colts</option>
-                                    <option>Jacksonville Jaguars</option>
-                                    <option>Tennessee Titans</option>
-                                </optgroup>
-                                <optgroup label="AFC WEST">
-                                    <option>Denver Broncos</option>
-                                    <option>Kansas City Chiefs</option>
-                                    <option>Oakland Raiders</option>
-                                    <option>San Diego Chargers</option>
-                                </optgroup>
+                        <optgroup label="Basic">
+                            <option value="1">Single</option>
+                            <option value="2">Double</option>
+                            <option value="3">Treble</option>
+                            <option value="4">Accumulator</option>
+                        <optgroup>
+                        <optgroup label="Full Cover">
+                            <option value="5">Trixie</option>
+                            <option value="6">Yankee</option>
+                            <option value="7">Canadian</option>
+                            <option value="8">Heinz</option>
+                            <option value="9">Super Heinz</option>
+                            <option value="10">Goliath</option>
+                            <option value="11">Block</option>
+                        </optgroup>
+                        <optgroup label="Full Cover With Singles">
+                            <option value="12">Patent</option>
+                            <option value="13">Yap</option>
+                            <option value="14">Lucky 15</option>
+                            <option value="15">Lucky 31</option>
+                            <option value="16">Lucky 63</option>
+                            <option value="17">Super Heinz with Singles</option>
+                            <option value="18">Goliath with Singles</option>
+                            <option value="19">Block with Singles</option>
+                        </optgroup>
+                        <optgroup label="Any To Come">
+                            <option value="20">SSA</option>
+                            <option value="21">DSA</option>
+                            <option value="22">Round Robin</option>
+                            <option value="23">Flag</option>
+                            <option value="24">Super Flag</option>
+                            <option value="25">Heinz Flag</option>
+                            <option value="26">Super Heinz Flag</option>
+                            <option value="27">Goliath Flag</option>
+                        </optgroup>
+                        <optgroup label="Speciality">
+                            <option value="28">Rounder</option>
+                            <option value="29">Roundabout</option>
+                            <option value="30">Fivespot</option>
+                            <option value="31">Pontoon</option>
+                            <option value="32">Magnificent 7</option>
+                            <option value="33">Alphabet</option>
+                            <option value="34">Bookies Nightmare</option>
+                            <option value="35">Union Jack Treble</option>
+                            <option value="36">Union Jack Trixie</option>
+                            <option value="37">Union Jack Patent</option>
+                            <option value="38">Union Jack Round Robin</option>
+                        </optgroup>
                     </select>
                 </div>
             </fieldset>
+
+            <br />
+
             <fieldset>
-                <legend>Bet Options</legend>
+                <legend>
+                    Bet Options <a data-toggle="tooltip" class="tooltip-link" data-original-title="Bet type options">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                    </a>
+                </legend>
+
                 <div class="form-horizontal">
 
                     <div class="form-group">
-                        <div class="col-md-4 col-xs-6">
+                        <div class="col-md-5 col-xs-6">
                             <label class="control-label">Unit Stake</label>
                             <div><small>minimum: 0.01</small></div>
                         </div>
@@ -88,39 +101,74 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="col-md-4 col-xs-6">
-                            <label class="control-label">Unit Stake</label>
-                            <div><small>minimum: 0.01</small></div>
+                        <div class="col-md-5 col-xs-6">
+                            <label class="control-label">Each Way</label>
                         </div>
-                        <div class="col-md-3 col-xs-6">
-                            <input class="form-control" type="text">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-xs-6 control-label">Another choice</label>
-                        <div class="col-xs-6">
-                            <select class="form-control select">
-                                <option>very long choice C</option>
-                                <option>very long choice D</option>
-                            </select>
+                        <div class="col-md-6 col-xs-6">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-default each-way-toggle">Yes</button>
+                                <button type="button" class="btn btn-default each-way-toggle">No</button>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-md-4 col-xs-6">
+                        <div class="col-md-5 col-xs-6">
                             <label class="control-label">Number of Selections</label>
-                            <div><small>Secondary text</small></div>
+                            <div><small>1.2</small></div>
                         </div>
-                        <div class="col-md-3 col-xs-6">
+                        <div class="col-md-2 col-xs-6">
                             <input class="form-control" type="text">
                         </div>
                     </div>
 
                 </div>
+            </fieldset>
 
+            <br />
 
-
-
+            <fieldset>
+                <legend>
+                    Selections <a data-toggle="tooltip" class="tooltip-link" data-original-title="Selections">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                    </a>
+                </legend>
+                <table class="table" id="bet-selection-table">
+                    <tr>
+                        <th>...</th>
+                        <th>Status</th>
+                        <th colspan="3">Win Odds</th>
+                        <th>Place</th>
+                    </tr>
+                    <tr>
+                        <td width="9%"><button type="button" class="btn btn-default">1</button></td>
+                        <td width="30%">
+                            <select class="bet-status-picker">
+                                <option value="won">Won</option>
+                                <option value="placed">Placed</option>
+                                <option value="lost">Lost</option>
+                                <option value="voidnr">Void NR</option>
+                            </select>
+                        </td>
+                        <td width="20%" class="bet-selection-win-odd-cell">
+                            <input type="number" class="form-control" value="1">
+                        </td>
+                        <td width="1%" style="vertical-align:middle">
+                            <span>/</span>
+                        </td>
+                        <td width="20%" class="bet-selection-win-odd-cell">
+                            <input type="number" class="form-control" value="1">
+                        </td>
+                        <td width="20%">
+                            <select class="bet-status-picker">
+                                <option value="1">1/1</option>
+                                <option value="2">1/2</option>
+                                <option value="3">1/3</option>
+                                <option value="4">1/4</option>
+                                <option value="5">1/5</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
             </fieldset>
         </form>
 
@@ -131,14 +179,10 @@
 </div>
 
 @section scripts{
-    @*<script src="~/app/vendors/chosen_v1.7.0/chosen.jquery.min.js"></script>*@
     <script src="~/app/vendors/bootstrap-select-1.12.4/dist/js/bootstrap-select.min.js"></script>
     <script src="~/app/js/betCalculator.js"></script>
 }
 
 @section customStyles{
- 
     <link href="~/app/vendors/bootstrap-select-1.12.4/dist/css/bootstrap-select.min.css" rel="stylesheet" />   
-    @*<link href="~/app/vendors/chosen_v1.7.0/chosen.min.css" rel="stylesheet" />*@
-    @*<link href="~/app/vendors/chosen_v1.7.0/bootstrap-chosen.css" rel="stylesheet" />*@
 }

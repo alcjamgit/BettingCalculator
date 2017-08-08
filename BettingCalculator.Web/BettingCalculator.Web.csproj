@@ -221,6 +221,15 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\css\Site.css" />
+    <Content Include="app\vendors\bootstrap-3.3.7-dist\css\bootstrap-theme.css" />
+    <Content Include="app\vendors\bootstrap-3.3.7-dist\css\bootstrap-theme.min.css" />
+    <Content Include="app\vendors\bootstrap-3.3.7-dist\css\bootstrap.css" />
+    <Content Include="app\vendors\bootstrap-3.3.7-dist\css\bootstrap.min.css" />
+    <Content Include="app\vendors\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="app\vendors\bootstrap-3.3.7-dist\js\bootstrap.js" />
+    <Content Include="app\vendors\bootstrap-3.3.7-dist\js\bootstrap.min.js" />
+    <Content Include="app\vendors\bootstrap-3.3.7-dist\js\npm.js" />
     <Content Include="app\vendors\bootstrap-select-1.12.4\.gitignore" />
     <Content Include="app\vendors\bootstrap-select-1.12.4\dist\css\bootstrap-select.css" />
     <Content Include="app\vendors\bootstrap-select-1.12.4\dist\css\bootstrap-select.min.css" />
@@ -500,6 +509,14 @@
     <Content Include="app\vendors\bootstrap-select-1.12.4\README.md" />
     <Content Include="app\vendors\bootstrap-select-1.12.4\sass\bootstrap-select.scss" />
     <Content Include="app\vendors\bootstrap-select-1.12.4\sass\variables.scss" />
+    <Content Include="app\vendors\bootstrap-3.3.7-dist\css\bootstrap-theme.css.map" />
+    <Content Include="app\vendors\bootstrap-3.3.7-dist\css\bootstrap-theme.min.css.map" />
+    <Content Include="app\vendors\bootstrap-3.3.7-dist\css\bootstrap.css.map" />
+    <Content Include="app\vendors\bootstrap-3.3.7-dist\css\bootstrap.min.css.map" />
+    <Content Include="app\vendors\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="app\vendors\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="app\vendors\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="app\vendors\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -529,7 +546,6 @@
     <Content Include="Views\BetCalculator\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\css\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
