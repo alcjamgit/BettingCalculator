@@ -26,7 +26,7 @@
                 <legend>Bet Type</legend>
 
                 <div class="form-group">
-                    <select id='betTypeId'>
+                    <select id='selectedBetType'>
                         <optgroup label="Basic">
                             <option value="1">Single</option>
                             <option value="2">Double</option>
@@ -116,8 +116,11 @@
                             <label class="control-label">Number of Selections</label>
                             <div><small>1.2</small></div>
                         </div>
-                        <div class="col-md-2 col-xs-6">
-                            <input class="form-control" type="text">
+                        <div class="col-md-2 col-xs-3">
+                            <input id="bet-selection-count" class="form-control" type="text">
+                        </div>
+                        <div class="col-md-2 col-xs-2 pl0">
+                            <button id="set-bet-selection" type="button" class="btn btn-default">Set</button>
                         </div>
                     </div>
 
@@ -133,41 +136,48 @@
                     </a>
                 </legend>
                 <table class="table" id="bet-selection-table">
-                    <tr>
-                        <th>...</th>
-                        <th>Status</th>
-                        <th colspan="3">Win Odds</th>
-                        <th>Place</th>
-                    </tr>
-                    <tr>
-                        <td width="9%"><button type="button" class="btn btn-default">1</button></td>
-                        <td width="30%">
-                            <select class="bet-status-picker">
-                                <option value="won">Won</option>
-                                <option value="placed">Placed</option>
-                                <option value="lost">Lost</option>
-                                <option value="voidnr">Void NR</option>
-                            </select>
-                        </td>
-                        <td width="20%" class="bet-selection-win-odd-cell">
-                            <input type="number" class="form-control" value="1">
-                        </td>
-                        <td width="1%" style="vertical-align:middle">
-                            <span>/</span>
-                        </td>
-                        <td width="20%" class="bet-selection-win-odd-cell">
-                            <input type="number" class="form-control" value="1">
-                        </td>
-                        <td width="20%">
-                            <select class="bet-status-picker">
-                                <option value="1">1/1</option>
-                                <option value="2">1/2</option>
-                                <option value="3">1/3</option>
-                                <option value="4">1/4</option>
-                                <option value="5">1/5</option>
-                            </select>
-                        </td>
-                    </tr>
+
+                    <thead>
+                        <tr>
+                            <th>...</th>
+                            <th>Status</th>
+                            <th colspan="3">Win Odds</th>
+                            <th>Place</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td width="9%"><button type="button" class="btn btn-default">1</button></td>
+                            <td width="30%">
+                                <select class="bet-status-picker">
+                                    <option value="won">Won</option>
+                                    <option value="placed">Placed</option>
+                                    <option value="lost">Lost</option>
+                                    <option value="voidnr">Void NR</option>
+                                </select>
+                            </td>
+                            <td width="20%" class="bet-selection-win-odd-cell">
+                                <input type="number" class="form-control" value="1">
+                            </td>
+                            <td width="1%" style="vertical-align:middle">
+                                <span>/</span>
+                            </td>
+                            <td width="20%" class="bet-selection-win-odd-cell">
+                                <input type="number" class="form-control" value="1">
+                            </td>
+                            <td width="20%">
+                                <select class="bet-status-picker">
+                                    <option value="1">1/1</option>
+                                    <option value="2">1/2</option>
+                                    <option value="3">1/3</option>
+                                    <option value="4">1/4</option>
+                                    <option value="5">1/5</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                    
                 </table>
             </fieldset>
         </form>

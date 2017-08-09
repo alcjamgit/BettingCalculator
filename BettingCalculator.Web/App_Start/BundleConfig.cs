@@ -22,7 +22,8 @@ namespace BettingCalculator.Web
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/app/vendors/bootstrap-3.3.7-dist/css/bootstrap.css",
-                      "~/app/css/site.css"));
+                      "~/app/css/site.css",
+                      "~/app/vendors/basscss/basscss.css"));
         }
     }
 }

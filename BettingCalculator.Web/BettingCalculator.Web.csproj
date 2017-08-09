@@ -221,7 +221,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\css\Site.css" />
+    <Content Include="app\css\site.css" />
+    <Content Include="app\vendors\basscss\basscss.css" />
     <Content Include="app\vendors\bootstrap-3.3.7-dist\css\bootstrap-theme.css" />
     <Content Include="app\vendors\bootstrap-3.3.7-dist\css\bootstrap-theme.min.css" />
     <Content Include="app\vendors\bootstrap-3.3.7-dist\css\bootstrap.css" />
