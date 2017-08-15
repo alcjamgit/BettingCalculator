@@ -37,6 +37,10 @@
                 row.find('.win-odd-denominator').removeClass('hide');
                 row.find('.win-odd-slash').removeClass('hide');
             }
+
+            if (true) {
+
+            }
         });
     }
 
@@ -97,7 +101,7 @@
             var rows = "";
             for (var i = 0; i < numSelections; i++) {
                 rows += "<tr>";
-                rows += "<td><button type='button' class='btn btn-default'>" + (i + 1) + "</button></td>";
+                rows += "<td width='9%'><button type='button' class='btn btn-default'>" + (i + 1) + "</button></td>";
                 rows += "<td width='30%'>" + betStatusSelect + "</td>";
                 rows += "<td width='20%' class='bet-selection-win-odd-cell'><input type='number' class='form-control win-odd-numerator' value='1'></td>";
                 rows += "<td width='1%' style='vertical-align:middle'><span class='win-odd-slash'>/</span></td>"
@@ -106,9 +110,10 @@
                 rows += "</tr>";
             }
             $("#bet-selection-table").append(rows);
-            //initializeBetStatusPickers();
-            $('.bet-status-picker').selectpicker('refresh');
-            //initializeBetPlacementPickers();
+            initializeBetStatusPickers();
+            //$('.bet-status-picker').selectpicker('refresh');
+            //$('.bet-placement-picker').selectpicker('refresh');
+            initializeBetPlacementPickers();
         });
     }
 
