@@ -9,7 +9,18 @@
         initializeBetStatusPickers();
         initializeBetPlacementPickers();
         setBetSelectionHandler();
+        eachWayToggleHandler()
+        initializeValues();
     });
+
+    function initializeValues() {
+        $('.each-way-toggle').removeClass('active');
+        $('.each-way-toggle[data-each-way-value="yes"]').addClass('active');
+        $('#unitStake').val(1);
+        $('#bet-selection-count').val(1);
+        $('#set-bet-selection').click();
+
+    }
 
     function initializeBetTypePicker(selector) {
         $('#selectedBetType').selectpicker({
@@ -27,38 +38,82 @@
         }).on('changed.bs.select', function (e) {
             var status = $(this).val();
             var row = $(this).closest('tr');
-            if (status != "won") {
-                row.find('.win-odd-numerator').addClass('hide');
-                row.find('.win-odd-denominator').addClass('hide');
-                row.find('.win-odd-slash').addClass('hide');
+            var eachWayVal = $('.each-way-toggle.active').data('each-way-value');
 
+            var betPlacementPicker = row.find('.bet-placement-picker');
+            var winOdd = row.find('.win-odd-numerator,.win-odd-denominator,.win-odd-slash');
+            var betOptionBtn = row.find('.bet-option-btn');
+
+            //show or hide win odds
+            if ((status === "won" || status === "placed") && eachWayVal === 'yes') {
+                winOdd.removeClass('hide');
+                betPlacementPicker.removeClass('hide');
+                betOptionBtn.removeAttr("disabled");
+            } else if (status === "won" && eachWayVal === 'no') {
+                winOdd.removeClass('hide');
+                betPlacementPicker.addClass('hide');
+                betOptionBtn.removeAttr("disabled");
             } else {
-                row.find('.win-odd-numerator').removeClass('hide');
-                row.find('.win-odd-denominator').removeClass('hide');
-                row.find('.win-odd-slash').removeClass('hide');
+                winOdd.addClass('hide');
+                betPlacementPicker.addClass('hide');
+                betOptionBtn.attr("disabled", "disabled");
             }
 
-            if (true) {
+            //set attributes to be used by each way toggle
+            var betStatuses = getBetStatusObject();
+            
 
+            $.each(betStatuses, function (val, text) {
+                betPlacementPicker.removeClass(val);
+                winOdd.removeClass(val);
+                //betOptionBtn.removeClass(val);
+            });
+            betPlacementPicker.addClass(status);
+            winOdd.addClass(status);
+            //betOptionBtn.addClass(status);
+            
+        });
+    }
+
+    function eachWayToggleHandler() {
+
+        $('.each-way-toggle').on('click', function (e) {
+            var eachWayVal = $(this).data('each-way-value');
+            var winOddsWon = $('.win-odd-numerator.won,.win-odd-denominator.won,.win-odd-slash.won');
+            var winOddsPlaced = $('.win-odd-numerator.placed,.win-odd-denominator.placed,.win-odd-slash.placed');
+
+            if (eachWayVal === 'yes') {
+                $(".bet-placement-picker.won,.bet-placement-picker.placed").removeClass('hide')
+                winOddsWon.removeClass('hide');
+                winOddsPlaced.removeClass('hide');
+            } else {
+                $(".bet-placement-picker").addClass('hide')
             }
+
         });
     }
 
     function initializeBetPlacementPickers(selector) {
         $('.bet-placement-picker').selectpicker({
-            width: '100%',
+            width: '100%'
         });
     }
 
-    function setBetSelectionHandler() {
 
-        var betStatuses = {
+
+    function getBetStatusObject() {
+        return {
             "won": "Won",
             "placed": "Placed" ,
             "lost": "Lost" ,
             "voidnr": "Void NR" 
         };
-        var betTypeSelectOptions = "";
+    }
+
+    function setBetSelectionHandler() {
+
+        var betStatuses = getBetStatusObject();
+        
 
         $("#set-bet-selection").on("click", function (e) {
             var numSelections = $('#bet-selection-count').val();
@@ -69,6 +124,7 @@
 
             $("#bet-selection-table tbody").empty();
 
+            var betTypeSelectOptions = "";
             /*Bet Status Select*/
             $.each(betStatuses, function (val, text) {
                 betTypeSelectOptions += "<option value='" + val + "'>" + text + "</option>";
@@ -80,18 +136,18 @@
             $betStatusSelect.append(betTypeSelectOptions);
             var betStatusSelect = $("<div/>").append($betStatusSelect).html();
 
-            /*Bet Status Select End*/
+            
 
             /*Bet Placement Select*/
             var betPlacementOptions = "";
-            var placeCount = 5;
+            var placeCount = 6;
             for (var i = 0; i < placeCount; i++) {
-                var placeRatioText = (i + 1) + '/' + placeCount;
+                var placeRatioText = '1/' + (i + 1);
                 betPlacementOptions += "<option value='" + (i + 1) + "'>" + placeRatioText + "</option>";
             }
 
             var $betPlacementSelect = $('<select>', {
-                class: 'bet-placement-picker'
+                class: 'bet-placement-picker won',
             });
             $betPlacementSelect.append(betPlacementOptions);
             var betPlacementSelect = $("<div/>").append($betPlacementSelect).html();
@@ -101,11 +157,11 @@
             var rows = "";
             for (var i = 0; i < numSelections; i++) {
                 rows += "<tr>";
-                rows += "<td width='9%'><button type='button' class='btn btn-default'>" + (i + 1) + "</button></td>";
+                rows += "<td width='9%'><button type='button' class='btn btn-default bet-option-btn'>" + (i + 1) + "</button></td>";
                 rows += "<td width='30%'>" + betStatusSelect + "</td>";
-                rows += "<td width='20%' class='bet-selection-win-odd-cell'><input type='number' class='form-control win-odd-numerator' value='1'></td>";
+                rows += "<td width='20%' class='bet-selection-win-odd-cell'><input type='number' class='form-control win-odd-numerator won' value='1'></td>";
                 rows += "<td width='1%' style='vertical-align:middle'><span class='win-odd-slash'>/</span></td>"
-                rows += "<td width='20%' class='bet-selection-win-odd-cell'><input type='number' class='form-control win-odd-denominator' value='1'></td>";
+                rows += "<td width='20%' class='bet-selection-win-odd-cell'><input type='number' class='form-control win-odd-denominator won' value='1'></td>";
                 rows += "<td width='20%'>" + betPlacementSelect + "</td>";
                 rows += "</tr>";
             }
