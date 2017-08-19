@@ -6,10 +6,19 @@
         initializeBetTypePicker();
         setupEachWayToggle();
         initializePopOvers();
-        initializeBetStatusPickers();
-        initializeBetPlacementPickers();
         setBetSelectionHandler();
         eachWayToggleHandler()
+        
+        /*Bet options*/
+        betOptionBtnHandler();
+        initializeBetStatusPickers();
+        initializeBetPlacementPickers();
+
+        /*Bet option modal*/
+        deadHeatHandler();
+        jointFavoriteHandler();
+        rule4Handler();
+
         initializeValues();
     });
 
@@ -31,6 +40,16 @@
         });
     }
 
+    function betOptionBtnHandler() {
+        $('#betSelectionModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('option-index') // Extract info from data-* attributes
+            
+            var modal = $(this)
+            modal.find('.modal-title').text('Bet Option ' + recipient)
+            modal.find('.modal-body input').val(recipient)
+        })
+    }
     function initializeBetStatusPickers(selector) {
 
         $('.bet-status-picker').selectpicker({
@@ -157,7 +176,10 @@
             var rows = "";
             for (var i = 0; i < numSelections; i++) {
                 rows += "<tr>";
-                rows += "<td width='9%'><button type='button' class='btn btn-default bet-option-btn'>" + (i + 1) + "</button></td>";
+                rows += "<td width='9%'><button type='button' class='btn btn-default bet-option-btn' data-toggle='modal' data-target='#betSelectionModal' "
+                    + "data-option-index = '" + (i+1) + "'"
+                    + ">"
+                    + (i + 1) + "</button></td>";
                 rows += "<td width='30%'>" + betStatusSelect + "</td>";
                 rows += "<td width='20%' class='bet-selection-win-odd-cell'><input type='number' class='form-control win-odd-numerator won' value='1'></td>";
                 rows += "<td width='1%' style='vertical-align:middle'><span class='win-odd-slash'>/</span></td>"
@@ -189,4 +211,35 @@
         });
     }
 
+    function deadHeatHandler() {
+        $("#toggleDeadHeat").on('click', function (e) {
+            $("#dead-heat-container").toggleClass('hidden');
+
+            if ($("#dead-heat-container").is(':hidden')) {
+                $(this).text('+');
+            } else {
+                $(this).text('-');
+            }
+            
+        });
+    }
+
+    function jointFavoriteHandler() {
+        $("#toggleJointFavorite").on('click', function (e) {
+            $("#joint-favorite-container").toggleClass('hidden');
+
+            if ($("#joint-favorite-container").is(':hidden')) {
+                $(this).text('+');
+            } else {
+                $(this).text('-');
+            }
+
+        });
+    }
+
+    function rule4Handler() {
+        $("#rule4-picker").selectpicker({
+            width: '100%'
+        });
+    }
 })(window.jQuery, window, document);

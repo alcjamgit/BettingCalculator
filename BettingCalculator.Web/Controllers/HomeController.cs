@@ -12,7 +12,7 @@ namespace BettingCalculator.Web.Controllers
         {
             ViewBag.Title = "Home Page";
 
-            return View();
+            return RedirectToAction("Index", "BetCalculator");
         }
     }
 }

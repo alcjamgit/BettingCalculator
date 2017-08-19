@@ -1,0 +1,112 @@
+﻿<!-- Modal -->
+<div class="modal fade" id="betSelectionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    
+                        <table class="table table-bordered" id="result-table-1">
+
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Rule 4</th>
+                                    <th class="text-center">Dead Heat</th>
+                                    <th class="text-center">Joint Favorite</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td width="20%">
+                                        <select id="rule4-picker">
+                                            <option value="0">0</option>
+                                            <option value="5">5</option>
+                                            <option value="10">10</option>
+                                            <option value="15">15</option>
+                                            <option value="20">20</option>
+                                            <option value="25">25</option>
+                                            <option value="30">30</option>
+                                            <option value="35">35</option>
+                                            <option value="40">40</option>
+                                            <option value="45">45</option>
+                                            <option value="50">50</option>
+                                            <option value="55">55</option>
+                                            <option value="60">60</option>
+                                            <option value="65">65</option>
+                                            <option value="70">70</option>
+                                            <option value="75">75</option>
+                                            <option value="80">80</option>
+                                            <option value="85">85</option>
+                                            <option value="90">90</option>
+                                        </select>
+                                    </td>
+                                    <td width="40%">
+                                        <div id="dead-heat-container" class="form-horizontal hidden">
+                                            <div class="form-group text-right">
+                                                <div class="col-xs-6">
+                                                    <label class="control-label">Total</label>
+                                                    <div><small>2..4</small></div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <input id="deadHeatTotal" class="form-control" type="number">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="text-center">
+                                            <button id="toggleDeadHeat" type="button" class="btn btn-default">+</button>
+                                        </div>
+                                    </td>
+                                    <td width="40%">
+                                        <div id="joint-favorite-container" class="form-horizontal hidden">
+                                            <div class="form-group text-right">
+                                                <div class="col-xs-6">
+                                                    <label class="control-label">Total</label>
+                                                    <div><small>2..6</small></div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <input id="jointFavoriteTotal" class="form-control" type="number">
+                                                </div>
+                                            </div>
+                                            <div class="form-group text-right">
+                                                <div class="col-xs-6">
+                                                    <label class="control-label">Winndr</label>
+                                                    <div><small>1..2</small></div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <input id="joinFavoriteWinner" class="form-control" type="number">
+                                                </div>
+                                            </div>
+                                            <div class="form-group text-right">
+                                                <div class="col-xs-6">
+                                                    <label class="control-label">NR</label>
+                                                    <div><small>0..1</small></div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <input id="jointFavoriteNr" class="form-control" type="number">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="text-center">
+                                            <button id="toggleJointFavorite" type="button" class="btn btn-default">+</button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
