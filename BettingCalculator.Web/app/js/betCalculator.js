@@ -8,7 +8,8 @@
         initializePopOvers();
         setBetSelectionHandler();
         eachWayToggleHandler()
-        
+        calculateHandler();
+
         /*Bet options*/
         betOptionBtnHandler();
         initializeBetStatusPickers();
@@ -29,6 +30,28 @@
         $('#bet-selection-count').val(1);
         $('#set-bet-selection').click();
 
+    }
+
+    function calculateHandler() {
+        $('#calculateBet').on('click', function (e) {
+
+            var data = { id: "1", desc: "great" };
+
+            calculateBet(data).done(function (resp) {
+                alert('Success');
+            }).fail(function (resp) {
+                alert('Failed');
+            });
+        });
+
+    }
+
+    function calculateBet(data) {
+        return $.ajax({
+            url: "api/BetCalculatorApi",
+            type: "POST",
+            data: data
+        });
     }
 
     function initializeBetTypePicker(selector) {
