@@ -31,3 +31,11 @@
     margin: 0 auto;
     pointer-events: all;
 }
+
+.other-action-ellipsis {
+    position: absolute;
+    width: 100%;
+    top: 1.6ex;
+    left: 50%;
+    margin-left: -50%;
+}

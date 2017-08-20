@@ -60,7 +60,18 @@
             liveSearch: true,
             width: '100%',
             noneSelectedText: 'Please select bet type'
+        }).on('changed.bs.select', function (e) {
+            var newVal = e.target.value;
+            var betTypesWithBonus = [1, 2, 3];
+            var betTypeWith
+            if (betTypesWithBonus.indexOf(3) != -1) {
+                //alert('hooraz');
+            }
+
+
+
         });
+
     }
 
     function betOptionBtnHandler() {
@@ -129,6 +140,7 @@
                 winOddsWon.removeClass('hide');
                 winOddsPlaced.removeClass('hide');
             } else {
+                winOddsPlaced.addClass('hide');
                 $(".bet-placement-picker").addClass('hide')
             }
 
@@ -198,11 +210,15 @@
 
             var rows = "";
             for (var i = 0; i < numSelections; i++) {
+
+                var buttonHtml = '<span>' + (i + 1) + '</span>'
+                buttonHtml += '<strong class="other-action-ellipsis">…</strong>'
+
                 rows += "<tr>";
-                rows += "<td width='9%'><button type='button' class='btn btn-default bet-option-btn' data-toggle='modal' data-target='#betSelectionModal' "
+                rows += "<td width='9%'><button type='button' class='btn btn-default bet-option-btn relative' data-toggle='modal' data-target='#betSelectionModal' "
                     + "data-option-index = '" + (i+1) + "'"
                     + ">"
-                    + (i + 1) + "</button></td>";
+                    + buttonHtml + "</button></td>";
                 rows += "<td width='30%'>" + betStatusSelect + "</td>";
                 rows += "<td width='20%' class='bet-selection-win-odd-cell'><input type='number' class='form-control win-odd-numerator won' value='1'></td>";
                 rows += "<td width='1%' style='vertical-align:middle'><span class='win-odd-slash'>/</span></td>"
@@ -264,5 +280,34 @@
         $("#rule4-picker").selectpicker({
             width: '100%'
         });
+    }
+
+    function getBetTypes() {
+        return [
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
+        ];
     }
 })(window.jQuery, window, document);
