@@ -21,6 +21,10 @@
         rule4Handler();
 
         initializeValues();
+
+        getBetTypes().done(function (data) {
+            var test = data;
+        });
     });
 
     function initializeValues() {
@@ -54,6 +58,13 @@
         });
     }
 
+    function getBetTypes() {
+        return $.ajax({
+            url: "api/betCalculatorApi/betTypes",
+            type: "GET"
+        });
+    }
+
     function initializeBetTypePicker(selector) {
         $('#selectedBetType').selectpicker({
             size: 'auto',
@@ -84,6 +95,7 @@
             modal.find('.modal-body input').val(recipient)
         })
     }
+
     function initializeBetStatusPickers(selector) {
 
         $('.bet-status-picker').selectpicker({
@@ -282,7 +294,7 @@
         });
     }
 
-    function getBetTypes() {
+    function getBetTypesManual() {
         return [
             { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
             { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
