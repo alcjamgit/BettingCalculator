@@ -5,9 +5,10 @@
 
         initializeBetTypePicker();
         setupEachWayToggle();
+        setupBonusToggle();
         initializePopOvers();
         setBetSelectionHandler();
-        eachWayToggleHandler()
+        eachWayToggleHandler();
         calculateHandler();
 
         /*Bet options*/
@@ -22,16 +23,17 @@
 
         initializeValues();
 
-        getBetTypes().done(function (data) {
-            var test = data;
-        });
     });
 
     function initializeValues() {
         $('.each-way-toggle').removeClass('active');
         $('.each-way-toggle[data-each-way-value="yes"]').addClass('active');
+
+        $('.bonus-toggle').removeClass('active');
+        $('.bonus-toggle[data-bonus-value="yes"]').addClass('active');
+
         $('#unitStake').val(1);
-        $('#bet-selection-count').val(1);
+        $('#betSelectionCount').val(1);
         $('#set-bet-selection').click();
 
     }
@@ -58,12 +60,6 @@
         });
     }
 
-    function getBetTypes() {
-        return $.ajax({
-            url: "api/betCalculatorApi/betTypes",
-            type: "GET"
-        });
-    }
 
     function initializeBetTypePicker(selector) {
         $('#selectedBetType').selectpicker({
@@ -72,13 +68,37 @@
             width: '100%',
             noneSelectedText: 'Please select bet type'
         }).on('changed.bs.select', function (e) {
-            var newVal = e.target.value;
-            var betTypesWithBonus = [1, 2, 3];
-            var betTypeWith
-            if (betTypesWithBonus.indexOf(3) != -1) {
-                //alert('hooraz');
+            var elem = e.target;
+            var newVal = elem.value;
+            var selectedOption = $('option:selected', this);
+            var minSelection = selectedOption.data('min-selection');
+            var maxSelection = selectedOption.data('max-selection');
+            var hasBonus = selectedOption.data('has-bonus');
+            var betSelectionElem = $('#betSelectionCount');
+
+            if (isNaN(minSelection) || isNaN(maxSelection))
+                return; //todo put toastr message
+            
+            if (minSelection != maxSelection) {
+                $('#rangedSelectionContainer').removeClass('hidden');
+                $('#fixedSelectionContainer').addClass('hidden');
+                $('#selectionCountMin').text(minSelection);
+                $('#selectionCountMax').text(maxSelection);
+                betSelectionElem.val(minSelection);
+                betSelectionElem.prop('disabled', false);
+            } else {
+                $('#rangedSelectionContainer').addClass('hidden');
+                $('#fixedSelectionContainer').removeClass('hidden');
+                $('#fixedSelectionCount').text(minSelection);
+                betSelectionElem.val(minSelection);
+                betSelectionElem.prop('disabled',true);
             }
 
+            if (hasBonus) {
+                $('#bonusOptionContainer').removeClass('hidden');
+            } else {
+                $('#bonusOptionContainer').addClass('hidden');
+            }
 
 
         });
@@ -87,12 +107,12 @@
 
     function betOptionBtnHandler() {
         $('#betSelectionModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var recipient = button.data('option-index') // Extract info from data-* attributes
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var recipient = button.data('option-index'); // Extract info from data-* attributes
             
-            var modal = $(this)
-            modal.find('.modal-title').text('Bet Option ' + recipient)
-            modal.find('.modal-body input').val(recipient)
+            var modal = $(this);
+            modal.find('.modal-title').text('Bet Option ' + recipient);
+            modal.find('.modal-body input').val(recipient);
         })
     }
 
@@ -182,7 +202,7 @@
         
 
         $("#set-bet-selection").on("click", function (e) {
-            var numSelections = $('#bet-selection-count').val();
+            var numSelections = $('#betSelectionCount').val();
             if (!numSelections || isNaN(numSelections)) {
                 alert('Please set number of selections');
                 return;
@@ -256,6 +276,14 @@
         });
     }
 
+    function setupBonusToggle() {
+        $('.bonus-toggle').click(function (e) {
+            $('.bonus-toggle').not(this).removeClass('active');
+            $(this).toggleClass('active');
+            e.preventDefault();
+        });
+    }
+
     function initializePopOvers() {
         $('.tooltip-link').tooltip({
             placement: 'bottom'
@@ -294,32 +322,4 @@
         });
     }
 
-    function getBetTypesManual() {
-        return [
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-            { id: 0, text: '', category : '', minSelection: 0, maxSelection: 0, hasBonus: false },
-        ];
-    }
 })(window.jQuery, window, document);
