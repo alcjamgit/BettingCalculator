@@ -44,9 +44,9 @@
             var data = { id: "1", desc: "great" };
 
             calculateBet(data).done(function (resp) {
-                alert('Success');
+                toastr.success('Calculation done')
             }).fail(function (resp) {
-                alert('Failed');
+                toastr.error('Failed');
             });
         });
 
@@ -78,7 +78,7 @@
 
             if (isNaN(minSelection) || isNaN(maxSelection))
                 return; //todo put toastr message
-            
+
             if (minSelection != maxSelection) {
                 $('#rangedSelectionContainer').removeClass('hidden');
                 $('#fixedSelectionContainer').addClass('hidden');
@@ -91,7 +91,7 @@
                 $('#fixedSelectionContainer').removeClass('hidden');
                 $('#fixedSelectionCount').text(minSelection);
                 betSelectionElem.val(minSelection);
-                betSelectionElem.prop('disabled',true);
+                betSelectionElem.prop('disabled', true);
             }
 
             if (hasBonus) {
@@ -101,6 +101,13 @@
             }
 
 
+        }).on('shown.bs.select', function () {
+            ////hide live search on mobile, since keyboard gets in the way of the options
+            //if ($(window).width() < 768) {
+            //    $('.bs-searchbox').addClass('hidden'); // we need better selector
+            //} else {
+            //    $('.bs-searchbox').removeClass('hidden'); // we need better selector
+            //}
         });
 
     }
@@ -108,11 +115,51 @@
     function betOptionBtnHandler() {
         $('#betSelectionModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget); // Button that triggered the modal
-            var recipient = button.data('option-index'); // Extract info from data-* attributes
-            
+            var optionIndex = button.data('option-index'); // Extract info from data-* attributes
+
+            var options = {
+                rule : button.data('rule'),
+                deadHeatEnable : button.data('dead-heat-enable'),
+                deadHeatTotal : button.data('dead-heat-total'),
+                jointFavEnable : button.data('joint-fav-enable'),
+                jointFavTotal : button.data('joint-fav-total'),
+                jointFavWinner : button.data('joint-fav-winner'),
+                jointFavNr : button.data('joint-fav-nr')
+            };
+
+            hideDeadHeatContainer(!(options.deadHeatEnable === 'true'));
+            hideJointFavoriteContainer(!(options.jointFavEnable === 'true'));
+
             var modal = $(this);
-            modal.find('.modal-title').text('Bet Option ' + recipient);
-            modal.find('.modal-body input').val(recipient);
+            modal.find('.modal-title').text('Bet Option ' + optionIndex);
+            
+            $('#optionIndexVal').val(optionIndex);
+            $('#rule4-picker').val(options.rule);
+            $('#rule4-picker').selectpicker('refresh'); //refresh to update plugin value
+            $('#deadHeatEnabled').val(options.deadHeatEnable);
+            $('#deadHeatTotal').val(options.deadHeatTotal);
+            
+            $('#jointFavoriteEnabled').val(options.jointFavEnable);
+            $('#jointFavoriteTotal').val(options.jointFavTotal);
+            $('#joinFavoriteWinner').val(options.jointFavWinner);
+            $('#jointFavoriteNr').val(options.jointFavNr);
+
+        }).on('hidden.bs.modal', function (e) {
+
+            var optionId = $('#optionIndexVal').val();
+
+            var curBetOptionBtn = $('.bet-option-btn[data-option-index="' + optionId + '"]');
+
+            curBetOptionBtn.data('rule', $('#rule4-picker').val());
+
+            curBetOptionBtn.data('dead-heat-enable', $('#deadHeatEnabled').val());
+            curBetOptionBtn.data('dead-heat-total', $('#deadHeatTotal').val());
+
+            curBetOptionBtn.data('joint-fav-enable', $('#jointFavoriteEnabled').val());
+            curBetOptionBtn.data('joint-fav-total', $('#jointFavoriteTotal').val());
+            curBetOptionBtn.data('joint-fav-winner', $('#joinFavoriteWinner').val());
+            curBetOptionBtn.data('joint-fav-nr', $('#jointFavoriteNr').val());
+
         })
     }
 
@@ -134,14 +181,18 @@
                 winOdd.removeClass('hide');
                 betPlacementPicker.removeClass('hide');
                 betOptionBtn.removeAttr("disabled");
+                betOptionBtn.prop('disabled', false);
+                
             } else if (status === "won" && eachWayVal === 'no') {
                 winOdd.removeClass('hide');
                 betPlacementPicker.addClass('hide');
                 betOptionBtn.removeAttr("disabled");
+                betOptionBtn.prop('disabled', false);
             } else {
                 winOdd.addClass('hide');
                 betPlacementPicker.addClass('hide');
                 betOptionBtn.attr("disabled", "disabled");
+                betOptionBtn.prop('disabled', true);
             }
 
             //set attributes to be used by each way toggle
@@ -242,15 +293,10 @@
 
             var rows = "";
             for (var i = 0; i < numSelections; i++) {
-
-                var buttonHtml = '<span>' + (i + 1) + '</span>'
-                buttonHtml += '<strong class="other-action-ellipsis">…</strong>'
+                var buttonHtml = buildBetOptionBtn(i + 1);
 
                 rows += "<tr>";
-                rows += "<td width='9%'><button type='button' class='btn btn-default bet-option-btn relative' data-toggle='modal' data-target='#betSelectionModal' "
-                    + "data-option-index = '" + (i+1) + "'"
-                    + ">"
-                    + buttonHtml + "</button></td>";
+                rows += "<td width='9%'>" + buttonHtml + "</td>";
                 rows += "<td width='30%'>" + betStatusSelect + "</td>";
                 rows += "<td width='20%' class='bet-selection-win-odd-cell'><input type='number' class='form-control win-odd-numerator won' value='1'></td>";
                 rows += "<td width='1%' style='vertical-align:middle'><span class='win-odd-slash'>/</span></td>"
@@ -266,7 +312,28 @@
         });
     }
 
+    function buildBetOptionBtn(index) {
 
+        var buttonHtml = '<span>' + index + '</span>'
+        buttonHtml += '<strong class="other-action-ellipsis">…</strong>'
+
+        var $betPlacementSelect = $('<btn/>', {
+            class: 'btn btn-default bet-option-btn relative',
+            html: buttonHtml,
+            'data-option-index' : index,
+            'data-toggle' : 'modal',
+            'data-target' : '#betSelectionModal',
+            'data-rule': 0,
+            'data-dead-heat-enable' : false,
+            'data-dead-heat-total': 2,
+            'data-joint-fav-enble': false,
+            'data-joint-fav-total' : 2,
+            'data-joint-fav-winner' : 1,
+            'data-joint-fav-nr': 0,
+        });
+
+        return $betPlacementSelect.clone().wrap('<div/>').parent().html()
+    }
 
     function setupEachWayToggle() {
         $('.each-way-toggle').click(function (e) {
@@ -292,29 +359,53 @@
 
     function deadHeatHandler() {
         $("#toggleDeadHeat").on('click', function (e) {
-            $("#dead-heat-container").toggleClass('hidden');
 
-            if ($("#dead-heat-container").is(':hidden')) {
-                $(this).text('+');
-            } else {
-                $(this).text('-');
-            }
+            var isHidden = $("#dead-heat-container").is(':hidden');
+            hideDeadHeatContainer(!isHidden);
             
         });
     }
 
+    function hideDeadHeatContainer(hide) {
+        
+        $("#dead-heat-container").removeClass('hidden');
+
+        if (hide) {
+            $("#dead-heat-container").addClass('hidden'); //don't use toggleClass this is a generic method
+            $("#toggleDeadHeat").text('+');
+            $('#deadHeatEnabled').val(false);
+        } else {
+            $("#dead-heat-container").removeClass('hidden');
+            $('#toggleDeadHeat').text('-');
+            $('#deadHeatEnabled').val(true);
+        }
+    }
+
     function jointFavoriteHandler() {
         $("#toggleJointFavorite").on('click', function (e) {
-            $("#joint-favorite-container").toggleClass('hidden');
 
-            if ($("#joint-favorite-container").is(':hidden')) {
-                $(this).text('+');
-            } else {
-                $(this).text('-');
-            }
+            var isHidden = $("#joint-favorite-container").is(':hidden');
+            hideJointFavoriteContainer(!isHidden);
 
         });
     }
+
+    function hideJointFavoriteContainer(hide) {
+
+        $("#joint-favorite-container").removeClass('hidden');
+
+        if (hide) {
+            $("#joint-favorite-container").addClass('hidden'); //don't use toggleClass this is a generic method
+            $("#toggleJointFavorite").text('+');
+            $('#jointFavoriteEnabled').val(false);
+        } else {
+            $("#joint-favorite-container").removeClass('hidden');
+            $('#toggleJointFavorite').text('-');
+            $('#jointFavoriteEnabled').val(true);
+        }
+    }
+
+    
 
     function rule4Handler() {
         $("#rule4-picker").selectpicker({

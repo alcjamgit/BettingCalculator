@@ -22,6 +22,7 @@
                             <tbody>
                                 <tr>
                                     <td width="20%">
+                                        <input id="optionIndexVal" type="hidden" value="false" />
                                         <select id="rule4-picker">
                                             <option value="0">0</option>
                                             <option value="5">5</option>
@@ -46,6 +47,7 @@
                                     </td>
                                     <td width="40%">
                                         <div id="dead-heat-container" class="form-horizontal hidden">
+                                            <input id="deadHeatEnabled" type="hidden" value="false" />
                                             <div class="form-group text-right">
                                                 <div class="col-xs-6">
                                                     <label class="control-label">Total</label>
@@ -58,11 +60,12 @@
 
                                         </div>
                                         <div class="text-center">
-                                            <button id="toggleDeadHeat" type="button" class="btn btn-default">+</button>
+                                            <button id="toggleDeadHeat" data-dead-heat-enabled="false" type="button" class="btn btn-default">+</button>
                                         </div>
                                     </td>
                                     <td width="40%">
                                         <div id="joint-favorite-container" class="form-horizontal hidden">
+                                            <input id="jointFavoriteEnabled" type="hidden" value="false" />
                                             <div class="form-group text-right">
                                                 <div class="col-xs-6">
                                                     <label class="control-label">Total</label>
@@ -93,7 +96,7 @@
                                         </div>
                                         
                                         <div class="text-center">
-                                            <button id="toggleJointFavorite" type="button" class="btn btn-default">+</button>
+                                            <button id="toggleJointFavorite" data-joint-fav-enabled="false" type="button" class="btn btn-default">+</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -104,7 +107,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    @*<button type="button" class="btn btn-primary">Save changes</button>*@
                 </div>
             </div>
         </div>

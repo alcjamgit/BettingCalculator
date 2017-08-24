@@ -18,12 +18,14 @@ namespace BettingCalculator.Web
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/app/vendors/bootstrap-3.3.7-dist/js/bootstrap.js",
+                      "~/app/vendors/CodeSeven-toastr-998959b/build/toastr.min.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/app/vendors/bootstrap-3.3.7-dist/css/bootstrap.css",
                       "~/app/css/site.css",
-                      "~/app/vendors/basscss/basscss.css"));
+                      "~/app/vendors/basscss/basscss.css",
+                      "~/app/vendors/CodeSeven-toastr-998959b/build/toastr.min.css"));
         }
     }
 }
