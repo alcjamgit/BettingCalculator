@@ -32,4 +32,12 @@ namespace BettingCalculator.Core.Enums
         Speciality = 5
     }
 
+    public enum SelectionOutcomeEnum
+    {
+        Won = 1,
+        Placed = 2,
+        Lost = 3,
+        VoidNr= 4
+    }
+
 }

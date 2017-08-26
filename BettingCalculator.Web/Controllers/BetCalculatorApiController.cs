@@ -1,4 +1,5 @@
-﻿using BettingCalculator.Web.Models;
+﻿using BettingCalculator.Core.Models;
+using BettingCalculator.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +10,10 @@ namespace BettingCalculator.Web.Controllers
 {
     public class BetCalculatorApiController: ApiController
     {
-        public class MyClass
-        {
-            public string Id { get; set; }
-            public string Desc { get; set; }
-        }
 
-        public IHttpActionResult Post([FromBody]MyClass myClass)
+        public IHttpActionResult Post([FromBody]BetInput betInput)
         {
-            return Ok<MyClass>(myClass);
+            return Ok<BetInput>(betInput);
         }
 
         [HttpGet]

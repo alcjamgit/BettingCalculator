@@ -30,7 +30,7 @@
         $('.each-way-toggle[data-each-way-value="yes"]').addClass('active');
 
         $('.bonus-toggle').removeClass('active');
-        $('.bonus-toggle[data-bonus-value="yes"]').addClass('active');
+        //$('.bonus-toggle[data-bonus-value="yes"]').addClass('active');
 
         $('#unitStake').val(1);
         $('#betSelectionCount').val(1);
@@ -41,7 +41,20 @@
     function calculateHandler() {
         $('#calculateBet').on('click', function (e) {
 
-            var data = { id: "1", desc: "great" };
+            var data = {
+                betType: $('#selectedBetType').val(),
+                stake: $('#unitStake').val(),
+                eachWay: $('.each-way-toggle.active').data('each-way-value') === 'yes',
+                IncludeBonus: null,
+                AccumulatorFoldSize: null,
+                betSelections: parseBetSelections()
+            };
+
+            if ($('.bonus-toggle.active').data('bonus-value') === 'yes') {
+                data.IncludeBonus = true;
+            } else if ($('.bonus-toggle.active').data('bonus-value') === 'no') {
+                data.IncludeBonus = false;
+            }
 
             calculateBet(data).done(function (resp) {
                 toastr.success('Calculation done')
@@ -50,6 +63,40 @@
             });
         });
 
+    }
+
+    function parseBetSelections() {
+        var rows = $('.bet-selection-row');
+        if (!rows) return null;
+        var result = [];
+        $.each(rows, function (index, value) {
+            var elem = $(value);
+            var betOptionBtn = elem.find('.bet-option-btn');
+
+            var curData = { 
+                index: betOptionBtn.data('option-index'),
+                outcome: elem.find('.bet-status-picker:last').val(), 
+                oddsNumerator: elem.find('.win-odd-numerator').val(), 
+                oddsDenominator: elem.find('.win-odd-denominator').val(), 
+                place: elem.find('.bet-placement-picker:last').val(),
+                rule: betOptionBtn.data('rule'),
+                deadHeatEnabled: betOptionBtn.data('dead-heat-enable'),
+                jointFavoritEnabled: betOptionBtn.data('joint-fav-enable')
+            };
+
+            if (curData.deadHeatEnabled === 'true') {
+                curData.deadHeatTotal = betOptionBtn.data('dead-heat-total');
+            }
+
+            if (curData.jointFavoritEnabled === 'true') {
+                curData.jointFavoriteTotal = betOptionBtn.data('joint-fav-total');
+                curData.jointFavoriteWinner = betOptionBtn.data('joint-fav-winner');
+                curData.jointFavoriteNr = betOptionBtn.data('joint-fav-nr');
+            }
+
+            result.push(curData);
+        });
+        return result;
     }
 
     function calculateBet(data) {
@@ -100,8 +147,10 @@
 
             if (hasBonus) {
                 $('#bonusOptionContainer').removeClass('hidden');
+                $('.bonus-toggle[data-bonus-value="yes"]').addClass('active');
             } else {
                 $('#bonusOptionContainer').addClass('hidden');
+                $('.bonus-toggle').removeClass('active');
             }
         });
 
@@ -290,7 +339,7 @@
             for (var i = 0; i < numSelections; i++) {
                 var buttonHtml = buildBetOptionBtn(i + 1);
 
-                rows += "<tr>";
+                rows += "<tr class='bet-selection-row'>";
                 rows += "<td width='9%'>" + buttonHtml + "</td>";
                 rows += "<td width='30%'>" + betStatusSelect + "</td>";
                 rows += "<td width='20%' class='bet-selection-win-odd-cell'><input type='number' class='form-control win-odd-numerator won' value='1'></td>";
@@ -321,7 +370,7 @@
             'data-rule': 0,
             'data-dead-heat-enable' : false,
             'data-dead-heat-total': 2,
-            'data-joint-fav-enble': false,
+            'data-joint-fav-enable': false,
             'data-joint-fav-total' : 2,
             'data-joint-fav-winner' : 1,
             'data-joint-fav-nr': 0,
