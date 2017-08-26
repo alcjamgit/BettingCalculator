@@ -62,9 +62,13 @@
 
 
     function initializeBetTypePicker(selector) {
+
+        //hide live search on mobile, since keyboard gets in the way of the options
+        var liveSearch = $(window).width() >= 768;
+
         $('#selectedBetType').selectpicker({
             size: 'auto',
-            liveSearch: true,
+            liveSearch: liveSearch,
             width: '100%',
             noneSelectedText: 'Please select bet type'
         }).on('changed.bs.select', function (e) {
@@ -99,15 +103,6 @@
             } else {
                 $('#bonusOptionContainer').addClass('hidden');
             }
-
-
-        }).on('shown.bs.select', function () {
-            ////hide live search on mobile, since keyboard gets in the way of the options
-            //if ($(window).width() < 768) {
-            //    $('.bs-searchbox').addClass('hidden'); // we need better selector
-            //} else {
-            //    $('.bs-searchbox').removeClass('hidden'); // we need better selector
-            //}
         });
 
     }
